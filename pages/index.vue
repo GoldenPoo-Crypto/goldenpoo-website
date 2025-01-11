@@ -293,9 +293,9 @@
       <div class="max-w-7xl mx-auto px-4 text-center">
         <p class="mb-4">Follow us:</p>
         <div class="flex justify-center space-x-6">
-          <a href="#" class="hover:text-yellow-50"><IconTwitter class="h-6 w-6"/></a>
-          <a href="#" class="hover:text-yellow-50"><IconDiscord class="h-6 w-6"/></a>
-          <a href="#" class="hover:text-yellow-50"><IconFileCode class="h-6 w-6"/></a>
+          <NuxtLink to="https://x.com/goldenpoocrypto" target="_blank" class="hover:text-yellow-50"><IconTwitter class="h-6 w-6"/></NuxtLink>
+          <!-- <NuxtLink to="#" class="hover:text-yellow-50"><IconDiscord class="h-6 w-6"/></NuxtLink>
+          <NuxtLink to="#" class="hover:text-yellow-50"><IconFileCode class="h-6 w-6"/></NuxtLink> -->
         </div>
         <p class="mt-4 text-gray-400">
           Contact us:
