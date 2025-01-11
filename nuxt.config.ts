@@ -19,6 +19,11 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
+  runtimeConfig: {
+    public: {
+      brevoApiKey: process.env.NUXT_PUBLIC_BREVO_API_KEY,
+    },
+  },
   vue: {
 		compilerOptions: {
 			isCustomElement: (tag) => tag === 'iconify-icon',

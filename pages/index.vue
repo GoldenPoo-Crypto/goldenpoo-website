@@ -265,6 +265,29 @@
       </section>
     </div>
 
+    <!-- CTA EMAIL -->
+    <section id="subscribe" class="bg-yellow-500 py-16 px-8 text-center">
+      <h2 class="text-3xl font-bold text-yellow-50">Stay updated with GoldenPoo!</h2>
+      <p class="text-lg text-gray-900 mt-4">Join our mailing list and never miss the latest updates and news</p>
+      <form @submit.prevent="handleSubscribe" class="mt-6 flex flex-col md:flex-row justify-center items-center gap-4">
+        <input
+          type="email"
+          v-model="email"
+          placeholder="Enter your email"
+          required
+          class="px-4 py-2 rounded-lg w-full md:w-1/3 focus:outline-none"
+        />
+        <button
+          type="submit"
+          class="px-6 py-3 bg-white text-yellow-500 font-bold rounded-lg hover:bg-yellow-800"
+        >
+          Subscribe
+        </button>
+      </form>
+      <p v-if="successMessage" class="mt-4 text-green-100">{{ successMessage }}</p>
+      <p v-if="errorMessage" class="mt-4 text-red-100">{{ errorMessage }}</p>
+    </section>
+
     <!-- Footer -->
     <footer class="bg-gray-800 text-white py-8">
       <div class="max-w-7xl mx-auto px-4 text-center">
@@ -285,11 +308,16 @@
 
 
 <script>
+import Brevo from "sib-api-v3-sdk";
+
 export default {
   data() {
     return {
       isScrolled: false,
       menuOpen: false,
+      email: '',
+      successMessage: '',
+      errorMessage: '',
     };
   },
   mounted() {
@@ -306,9 +334,44 @@ export default {
     toggleMenu() {
       this.menuOpen = !this.menuOpen;
     },
+    async handleSubscribe() {
+      const config = useRuntimeConfig();
+
+      console.log('config', config)
+      if (!this.email) {
+        this.errorMessage = "Please enter a valid email.";
+        return;
+      }
+
+      // Configure Brevo
+      const client = Brevo.ApiClient.instance;
+      const apiKey = client.authentications['api-key'];
+      apiKey.apiKey = config.public.brevoApiKey;
+
+      const contactApi = new Brevo.ContactsApi();
+
+      const contact = {
+        email: this.email,
+        listIds: [3], // Remplace "2" par l'ID de ta liste dans Brevo
+        updateEnabled: true,
+      };
+
+      try {
+        await contactApi.createContact(contact);
+        this.successMessage = "Thanks for subscribing!";
+        this.errorMessage = '';
+        this.email = '';
+      } catch (error) {
+        console.error(error);
+        this.errorMessage = "Something went wrong. Please try again.";
+        this.successMessage = '';
+      }
+    },
   },
 };
 </script>
+
+<!--  -->
 
 <style scoped>
 /* Animation */
