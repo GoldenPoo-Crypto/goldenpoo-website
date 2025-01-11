@@ -284,8 +284,8 @@
           Subscribe
         </button>
       </form>
-      <p v-if="successMessage" class="mt-4 text-green-100">{{ successMessage }}</p>
-      <p v-if="errorMessage" class="mt-4 text-red-100">{{ errorMessage }}</p>
+      <p v-if="successMessage" class="mt-4 text-green-200 font-bold">{{ successMessage }}</p>
+      <p v-if="errorMessage" class="mt-4 text-red-200 font-bold">{{ errorMessage }}</p>
     </section>
 
     <!-- Footer -->
@@ -337,7 +337,6 @@ export default {
     async handleSubscribe() {
       const config = useRuntimeConfig();
 
-      console.log('config', config)
       if (!this.email) {
         this.errorMessage = "Please enter a valid email.";
         return;
@@ -362,7 +361,6 @@ export default {
         this.errorMessage = '';
         this.email = '';
       } catch (error) {
-        console.error(error);
         this.errorMessage = "Something went wrong. Please try again.";
         this.successMessage = '';
       }
